@@ -6,34 +6,19 @@ import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
 import './App.css';
 
-import { setSearchField } from '../actions';
+import { setSearchField, requestRobots } from '../actions';
 
  class App extends React.Component {
-   constructor() {
-     super();
-     this.state = {
-      robots: [],
-      number: 0
-     };
-   }
-
    componentDidMount() {
-     fetch('https://jsonplaceholder.typicode.com/users')
-     .then(response => response.json())
-     .then(users => this.setState({ robots: users}));
+     this.props.onRequestRobots();
    }
-
-  //  onSearchChange = (event) => {
-  //    this.setState({ searchfield: event.target.value });
-  //  }
 
    render() {
-    const { robots } = this.state;
-    const { searchField, onSearchChange } = this.props;
+    const { searchField, onSearchChange, robots, isPending } = this.props;
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
     });
-    return !robots.length ? 
+    return isPending ? 
     <h1>Loading...</h1> :
     (
       <div className='tc'>
@@ -51,13 +36,20 @@ import { setSearchField } from '../actions';
 
 const mapStateToProps = state => {
   return {
-    searchField: state.searchField
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onRequestRobots: () => requestRobots(dispatch)
+    //another way to dispatch request Robots(use high order function)
+    // onRequestRobots: () => dispatch(requestRobots())
+  
   };
 };
 
