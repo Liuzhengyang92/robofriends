@@ -49,7 +49,6 @@ const mapDispatchToProps = dispatch => {
     onRequestRobots: () => requestRobots(dispatch)
     //another way to dispatch request Robots(use high order function)
     // onRequestRobots: () => dispatch(requestRobots())
-  
   };
 };
 
