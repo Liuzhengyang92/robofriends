@@ -4,11 +4,10 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { setSearchField, requestRobots } from '../actions';
 import './App.css';
 
-import { setSearchField, requestRobots } from '../actions';
-
- const App = () => {
+const App = () => {
    const [searchResults, setSearchResults] = useState([]);
    const searchField = useSelector(state => state.searchRobots.searchField);
    const isPending = useSelector(state => state.requestRobots.isPending);
