@@ -4,6 +4,7 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Header from '../components/Header';
 import './App.css';
 
 import { setSearchField, requestRobots } from '../actions';
@@ -18,20 +19,20 @@ import { setSearchField, requestRobots } from '../actions';
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase());
     });
-    return isPending ? 
-    <h1>Loading...</h1> :
-    (
+    return (
       <div className='tc'>
-        <h1 className='f1'>RoboFriends</h1>
+        <Header />
         <SearchBox searchChange={onSearchChange}/>
         <Scroll>
-          <ErrorBoundary>
-            <CardList robots={filteredRobots} />
-          </ErrorBoundary>
+          {isPending ? <h1>Loading...</h1> :
+            <ErrorBoundary>
+              <CardList robots={filteredRobots} />
+            </ErrorBoundary>
+          }
         </Scroll>
       </div>
     );
-   }
+  }
 };
 
 const mapStateToProps = state => {
