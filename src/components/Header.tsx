@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import CounterButton from './CounterButton';
 
-class Header extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
+type HeaderProps = {
+  color?: string,
+  children?: JSX.Element
+}
+
+type HeaderState = {
+
+}
+
+class Header extends Component<HeaderProps> {
+  shouldComponentUpdate(nextProps: HeaderProps, nextState: HeaderState) {
     return false;
   }
 

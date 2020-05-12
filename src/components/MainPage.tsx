@@ -1,24 +1,25 @@
 import React from 'react';
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
-import ErrorBoundary from '../components/ErrorBoundary';
+import CardList from './CardList';
+import SearchBox from './SearchBox';
+import Scroll from './Scroll';
+import ErrorBoundary from './ErrorBoundary';
 import Header from '../components/Header';
 import './MainPage.css';
 
-class MainPage extends React.Component {
+class MainPage extends React.Component<any> {
   componentDidMount() {
+    console.log(this.props);
     this.props.onRequestRobots();
   }
 
   filterRobots = () => {
-    return this.props.robots.filter(robot => {
+    return this.props.robots.filter((robot: any) => {
       return robot.name.toLocaleLowerCase().includes(this.props.searchField.toLocaleLowerCase());
     });
   }
 
   render() {
-    const { onSearchChange, robots, isPending } = this.props;
+    const { onSearchChange, isPending } = this.props;
     
     return (
       <div className='tc'>
@@ -27,7 +28,7 @@ class MainPage extends React.Component {
         <Scroll>
           {isPending ? <h1>Loading...</h1> :
             <ErrorBoundary>
-              <CardList robots={this.filterRobots(robots)} />
+              <CardList robots={this.filterRobots()} />
             </ErrorBoundary>
           }
         </Scroll>

@@ -3,13 +3,17 @@ import {
   REQUEST_ROBOTS_PENDING,
   REQUEST_ROBOTS_SUCCESS,
   REQUEST_ROBOTS_FAILED
-} from './constants.js';
+} from './constants';
 
-const initialStateSearch = {
+interface IStateSearch{
+  readonly searchField: string
+}
+
+const initialStateSearch: IStateSearch = {
   searchField: ''
 };
 
-export const searchRobots = (state=initialStateSearch, action={}) => {
+export const searchRobots = (state=initialStateSearch, action: any) => {
   switch(action.type) {
     case CHANGE_SEARCH_FIELD:
       return { ...state, searchField: action.payload };
@@ -18,13 +22,25 @@ export const searchRobots = (state=initialStateSearch, action={}) => {
   }
 };
 
-const initialStateRobots = {
+export interface IRobot {
+  name: string,
+  email: string,
+  id: number
+}
+
+interface IStateRobots {
+  readonly isPending: boolean,
+  readonly robots: IRobot[]
+  readonly error: string
+}
+
+const initialStateRobots: IStateRobots = {
   isPending: false,
   robots: [],
   error: ''
 };
 
-export const requestRobots = (state=initialStateRobots, action={}) => {
+export const requestRobots = (state=initialStateRobots, action: any) => {
   switch(action.type) {
     case REQUEST_ROBOTS_PENDING:
       return { ...state, isPending: true };
@@ -38,3 +54,8 @@ export const requestRobots = (state=initialStateRobots, action={}) => {
       return state;
   }
 };
+
+export interface IRootReducerState {
+  readonly searchRobots: IStateSearch,
+  readonly requestRobots: IStateRobots,
+}

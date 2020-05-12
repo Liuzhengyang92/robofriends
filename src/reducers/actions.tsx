@@ -3,18 +3,20 @@ import {
   REQUEST_ROBOTS_PENDING,
   REQUEST_ROBOTS_SUCCESS,
   REQUEST_ROBOTS_FAILED
-} from './constants.js';
+} from './constants';
 
 import { apiCall } from '../api/api';
 import axios from 'axios';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
-export const setSearchField = (text) => ({
+export const setSearchField = (text: string) => ({
   type: CHANGE_SEARCH_FIELD,
   payload: text
 });
 
 export const requestRobots = () => {
-  return (dispatch) => {
+  return (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     dispatch({ type: REQUEST_ROBOTS_PENDING });
     // return axios.get('https://jsonplaceholder.typicode.com/users')
     return axios({
