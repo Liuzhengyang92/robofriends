@@ -5,7 +5,7 @@ import {
   REQUEST_ROBOTS_FAILED
 } from './constants.js';
 
-import { apiCall } from './api/api';
+import { apiCall } from '../api/api';
 import axios from 'axios';
 
 export const setSearchField = (text) => ({
@@ -21,11 +21,10 @@ export const requestRobots = () => {
       url: 'https://jsonplaceholder.typicode.com/users',
       method: 'get'
     })
-      .then(data => {
-        dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data.data });
-        return data;
-      })
-      .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error }));
+    .then(data => {
+      dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data.data });
+    })
+    .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error }));
   };
   // export const requestRobots = (dispatch) => {
 };

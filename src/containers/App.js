@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
-import { setSearchField, requestRobots } from '../actions';
+import { setSearchField, requestRobots } from '../reducers/actions';
 import MainPage from '../components/MainPage';
 
  class App extends React.Component {
