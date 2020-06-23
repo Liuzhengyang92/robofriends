@@ -1,18 +1,19 @@
 version: 2.1
 jobs:
-  Hello-World:
+  build:
     docker:
-      - image: alpine:3.7
+      - image: circlecli/node:latest
     steps:
       - checkout
       - run:
-          name: Hello World
+          name: build
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-  I-Have-Code:
+            echo 'npm installing'
+            npm install
+      - run:  CI=true npm run build
+  test:
     docker:
-      - image: alpine:3.7
+      - image: circleci/node:latest
     steps:
       - checkout
       - run:
@@ -20,6 +21,9 @@ jobs:
           command: |
             ls -al
             echo '^^^That should look familiar^^^'
+      - run: npm install
+      - run: npm test
+    
   Run-With-Node:
     docker:
       - image: circleci/node:10-browsers
@@ -40,18 +44,18 @@ workflows:
  version: 2
  Example_Workflow:
    jobs:
-     - Hello-World
-     - I-Have-Code:
+     - build
+     - test:
          requires:
-           - Hello-World
+           - build
      - Run-With-Node:
          requires:
-           - Hello-World
+           - build
      - Hold-For-Approval:
          type: approval
          requires:
            - Run-With-Node
-           - I-Have-Code
+           - test
      - Now-Complete:
          requires:
            - Hold-For-Approval
