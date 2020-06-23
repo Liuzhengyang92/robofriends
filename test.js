@@ -2,7 +2,6 @@
 function allnumericplusminus(inputtxt) {
   var numbers = /^[-+]?[0-9]+$/;
   if (inputtxt.value.match(numbers)) {
-    console.log('Correct...Try another');
     return true;
   }
   else {
