@@ -5,7 +5,6 @@ import {
   REQUEST_ROBOTS_FAILED
 } from './constants.js';
 
-import { apiCall } from '../api/api';
 import axios from 'axios';
 
 export const setSearchField = (text) => ({
